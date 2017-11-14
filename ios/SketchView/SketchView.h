@@ -15,5 +15,6 @@
 -(void) clear;
 -(void)setToolType:(SketchToolType) toolType;
 -(void)setViewImage:(UIImage *)image;
+-(void)setToolThickness:(CGFloat)thickness;
 
 @end

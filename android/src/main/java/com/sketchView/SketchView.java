@@ -10,7 +10,7 @@ import android.view.View;
 import com.sketchView.tools.EraseSketchTool;
 import com.sketchView.tools.PenSketchTool;
 import com.sketchView.tools.SketchTool;
-
+import com.sketchView.tools.ToolThickness;
 
 /**
  * Created by keshav on 05/04/17.
@@ -45,6 +45,11 @@ public class SketchView extends View {
             default:
                 currentTool = penTool;
         }
+    }
+
+    public void setToolThickness(float toolThickness) {
+        ((ToolThickness) penTool).setToolThickness(toolThickness);
+        ((ToolThickness) eraseTool).setToolThickness(toolThickness);
     }
 
     public void setViewImage(Bitmap bitmap) {

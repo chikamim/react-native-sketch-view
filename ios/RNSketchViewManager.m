@@ -24,6 +24,12 @@ RCT_CUSTOM_VIEW_PROPERTY(localSourceImagePath, NSString, SketchViewContainer)
     });
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(toolThickness, CGFloat, SketchViewContainer)
+{
+    SketchViewContainer *currentView = !view ? defaultView : view;
+    [currentView.sketchView setToolThickness:[RCTConvert CGFloat:json]];
+}
+
 RCT_EXPORT_MODULE(RNSketchView)
 
 -(UIView *)view

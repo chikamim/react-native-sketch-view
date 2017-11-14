@@ -29,11 +29,12 @@ public class RNSketchViewManager extends SimpleViewManager<SketchViewContainer> 
 
   private static final String PROPS_SELECTED_TOOL = "selectedTool";
   private static final String PROPS_LOCAL_SOURCE_IMAGE_PATH  = "localSourceImagePath";
+  private static final String PROPS_TOOL_THICKNESS = "toolThickness";
 
   private static final int COMMAND_CLEAR_SKETCH = 321;
   private static final int COMMAND_SAVE_SKETCH = 780;
   private static final int COMMAND_CHANGE_TOOL = 406;
-  
+
   @Override
   public String getName() {
     return RN_PACKAGE;
@@ -47,6 +48,11 @@ public class RNSketchViewManager extends SimpleViewManager<SketchViewContainer> 
   @ReactProp(name = PROPS_SELECTED_TOOL)
   public void setSelectedTool(SketchViewContainer viewContainer, @NonNull Integer toolId) {
     viewContainer.sketchView.setToolType(toolId);
+  }
+
+  @ReactProp(name = PROPS_TOOL_THICKNESS)
+  public void setPropsToolThickness(SketchViewContainer viewContainer, @NonNull float thickness) {
+    viewContainer.sketchView.setToolThickness(thickness);
   }
 
   @ReactProp(name = PROPS_LOCAL_SOURCE_IMAGE_PATH)

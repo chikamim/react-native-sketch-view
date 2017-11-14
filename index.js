@@ -1,11 +1,11 @@
 
 import React, { PropTypes, Component } from 'react';
-import { 
-  requireNativeComponent, 
+import {
+  requireNativeComponent,
   View,
   UIManager,
   findNodeHandle,
-  DeviceEventEmitter 
+  DeviceEventEmitter
 } from 'react-native';
 
 class SketchView extends Component {
@@ -94,7 +94,8 @@ SketchView.constants = {
 SketchView.propTypes = {
   ...View.propTypes, // include the default view properties
   selectedTool: PropTypes.number,
-  localSourceImagePath: PropTypes.string
+  localSourceImagePath: PropTypes.string,
+  toolThickness: PropTypes.number,
 };
 
 let RNSketchView = requireNativeComponent('RNSketchView', SketchView, {

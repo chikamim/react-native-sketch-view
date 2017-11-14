@@ -58,12 +58,19 @@
     [self setNeedsDisplay];
 }
 
+-(void)setToolThickness:(CGFloat)thickness
+{
+    [(PenSketchTool *)penTool setToolThickness:thickness];
+    [(EraserSketchTool *)eraseTool setToolThickness:thickness];
+}
+
 -(void) clear
 {
     incrementalImage = nil;
     [currentTool clear];
     [self setNeedsDisplay];
 }
+
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
