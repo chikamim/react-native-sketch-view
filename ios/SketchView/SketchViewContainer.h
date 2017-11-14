@@ -16,6 +16,6 @@
 
 -(SketchFile *)saveToLocalCache;
 -(BOOL)openSketchFile:(NSString *)localFilePath;
-
+-(NSString *)getBase64;
 
 @end

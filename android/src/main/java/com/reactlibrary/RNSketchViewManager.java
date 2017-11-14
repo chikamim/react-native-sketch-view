@@ -34,6 +34,7 @@ public class RNSketchViewManager extends SimpleViewManager<SketchViewContainer> 
   private static final int COMMAND_CLEAR_SKETCH = 321;
   private static final int COMMAND_SAVE_SKETCH = 780;
   private static final int COMMAND_CHANGE_TOOL = 406;
+  private static final int COMMAND_EXPORT_SKETCH = 511;
 
   @Override
   public String getName() {
@@ -70,6 +71,8 @@ public class RNSketchViewManager extends SimpleViewManager<SketchViewContainer> 
             COMMAND_SAVE_SKETCH,
             "changeTool",
             COMMAND_CHANGE_TOOL);
+            "exportSketch",
+            COMMAND_EXPORT_SKETCH,
   }
 
   @Override
@@ -93,6 +96,10 @@ public class RNSketchViewManager extends SimpleViewManager<SketchViewContainer> 
         } catch (IOException e) {
           e.printStackTrace();
         }
+      case COMMAND_EXPORT_SKETCH:
+        String encoding = root.getBase64();
+        onExportSketch(root, encoding);
+        return;
       default:
         throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Unsupported command %d.", commandId));
     }
@@ -114,6 +121,10 @@ public class RNSketchViewManager extends SimpleViewManager<SketchViewContainer> 
     reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(view.getId(), "topChange", nativeEvent);
   }
 
-
+  private void onExportSketch(SketchViewContainer root, String encoding) {
+    WritableMap event = Arguments.createMap();
+    event.putString("base64Encoded", encoding);
+    sendEvent(root, "onExportSketch", event);
+  }
 
 }

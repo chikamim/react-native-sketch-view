@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.widget.LinearLayout;
+import android.util.Base64;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 /**
@@ -53,6 +55,16 @@ public class SketchViewContainer extends LinearLayout {
             return true;
         }
         return false;
+    }
+
+    public String getBase64() {
+        Bitmap viewBitmap = Bitmap.createBitmap(sketchView.getWidth(), sketchView.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(viewBitmap);
+        draw(canvas);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        viewBitmap.compress(Bitmap.CompressFormat.PNG, 20, byteArrayOutputStream);
+        return Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
     }
 
 }

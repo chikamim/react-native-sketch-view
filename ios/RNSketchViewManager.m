@@ -51,6 +51,13 @@ RCT_EXPORT_METHOD(clearSketch:(nonnull NSNumber *)reactTag) {
     });
 }
 
+RCT_EXPORT_METHOD(exportSketch:(nonnull NSNumber *)reactTag) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *base64 = [self.sketchViewContainer getBase64];
+        [self onExportSketch:base64];
+    });
+}
+
 RCT_EXPORT_METHOD(changeTool:(nonnull NSNumber *)reactTag toolId:(NSInteger) toolId) {
     [self.sketchViewContainer.sketchView setToolType:toolId];
 }
@@ -65,5 +72,9 @@ RCT_EXPORT_METHOD(changeTool:(nonnull NSNumber *)reactTag toolId:(NSInteger) too
     }];
 }
 
+-(void)onExportSketch:(NSString *) encoding
+ {
+    [self.bridge.eventDispatcher sendDeviceEventWithName:@"onExportSketch" body:@{ @"base64Encoded": encoding }];
+ }
+
 @end
-  

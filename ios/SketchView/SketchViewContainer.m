@@ -23,16 +23,16 @@
 -(SketchFile *)saveToLocalCache
 {
     UIImage *image = [SketchViewContainer imageWithView:self];
-    
+
     NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
     NSString *fileName = [NSString stringWithFormat:@"sketch_%@.png", [[NSUUID UUID] UUIDString]];
     NSURL *fileURL = [tempDir URLByAppendingPathComponent:fileName];
-    
+
     NSLog(@"fileURL: %@", [fileURL path]);
-    
+
     NSData *imageData = UIImagePNGRepresentation(image);
     [imageData writeToURL:fileURL atomically:YES];
-    
+
     SketchFile *sketchFile = [[SketchFile alloc] init];
     sketchFile.localFilePath = [fileURL path];
     sketchFile.size = [image size];
@@ -47,5 +47,12 @@
     UIGraphicsEndImageContext();
     return img;
 }
+
+-(NSString *)getBase64
+{
+    UIImage *image = [SketchViewContainer imageWithView:self];
+    NSData *imageData = UIImagePNGRepresentation(image);
+    return [imageData base64EncodedStringWithOptions:0];
+ }
 
 @end
