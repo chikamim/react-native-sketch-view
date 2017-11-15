@@ -31,13 +31,20 @@ class SketchView extends Component {
     }
   }
 
+  onDraw = event => {
+    if (!this.props.onDraw) {
+      return;
+    }
+    this.props.onDraw(event.nativeEvent);
+  };
+
   componentDidMount() {
     if (this.props.onSaveSketch) {
-      let sub = DeviceEventEmitter.addListener('onSaveSketch', this.props.onSaveSketch);
+      const sub = DeviceEventEmitter.addListener('onSaveSketch', this.props.onSaveSketch);
       this.subscriptions.push(sub);
     }
     if (this.props.onExportSketch) {
-      let sub = DeviceEventEmitter.addListener('onExportSketch', this.props.onExportSketch);
+      const sub = DeviceEventEmitter.addListener('onExportSketch', this.props.onExportSketch);
       this.subscriptions.push(sub);
     }
   }
@@ -48,7 +55,7 @@ class SketchView extends Component {
   }
 
   render() {
-    return <RNSketchView {...this.props} onChange={this.onChange} />;
+    return <RNSketchView {...this.props} onChange={this.onChange} onDraw={this.onDraw} />;
   }
 
   clearSketch() {
@@ -86,9 +93,10 @@ SketchView.propTypes = {
   selectedTool: PropTypes.number,
   localSourceImagePath: PropTypes.string,
   toolThickness: PropTypes.number,
+  onDraw: PropTypes.func,
 };
 
-let RNSketchView = requireNativeComponent('RNSketchView', SketchView, {
+const RNSketchView = requireNativeComponent('RNSketchView', SketchView, {
   nativeOnly: { onChange: true },
 });
 

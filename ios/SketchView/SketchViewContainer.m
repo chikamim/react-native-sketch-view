@@ -10,6 +10,12 @@
 
 @implementation SketchViewContainer
 
+- (void)setSketchView:(SketchView *)sketchView
+{
+    _sketchView = sketchView;
+    self.sketchView.delegate = self;
+}
+
 -(BOOL)openSketchFile:(NSString *)localFilePath
 {
     UIImage *image = [UIImage imageWithContentsOfFile:localFilePath];
@@ -39,7 +45,7 @@
     return sketchFile;
 }
 
-+ (UIImage *) imageWithView:(UIView *)view
++ (UIImage *)imageWithView:(UIView *)view
 {
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, [[UIScreen mainScreen] scale]);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -53,6 +59,12 @@
     UIImage *image = [SketchViewContainer imageWithView:self];
     NSData *imageData = UIImagePNGRepresentation(image);
     return [imageData base64EncodedStringWithOptions:0];
- }
+}
+
+
+- (void)sketchViewOnDraw:(BOOL)isDrawing
+{
+    self.onDraw(@{@"isDrawing" : @(isDrawing)});
+}
 
 @end

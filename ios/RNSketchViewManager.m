@@ -30,6 +30,8 @@ RCT_CUSTOM_VIEW_PROPERTY(toolThickness, CGFloat, SketchViewContainer)
     [currentView.sketchView setToolThickness:[RCTConvert CGFloat:json]];
 }
 
+RCT_EXPORT_VIEW_PROPERTY(onDraw, RCTBubblingEventBlock)
+
 RCT_EXPORT_MODULE(RNSketchView)
 
 -(UIView *)view

@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <React/RCTComponent.h>
 #import "Paint.h"
 #import "SketchTool.h"
 
+@protocol SketchViewOnDrawDelegate <NSObject>
+@optional
+- (void)sketchViewOnDraw:(BOOL)isDrawing;
+@end
+
 @interface SketchView : UIView
 
--(void) clear;
+@property (weak, nonatomic) id <SketchViewOnDrawDelegate> delegate;
+-(void)clear;
 -(void)setToolType:(SketchToolType) toolType;
 -(void)setViewImage:(UIImage *)image;
 -(void)setToolThickness:(CGFloat)thickness;

@@ -83,6 +83,9 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [currentTool touchesBegan:touches withEvent:event];
+    if ([self.delegate respondsToSelector:@selector(sketchViewOnDraw:)]) {
+        [self.delegate sketchViewOnDraw:YES];
+    }
 }
 
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -94,12 +97,18 @@
 {
     [currentTool touchesEnded:touches withEvent:event];
     [self takeSnapshot];
+    if ([self.delegate respondsToSelector:@selector(sketchViewOnDraw:)]) {
+        [self.delegate sketchViewOnDraw:NO];
+    }
 }
 
 -(void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [currentTool touchesCancelled:touches withEvent:event];
     [self takeSnapshot];
+    if ([self.delegate respondsToSelector:@selector(sketchViewOnDraw:)]) {
+        [self.delegate sketchViewOnDraw:NO];
+    }
 }
 
 -(void)takeSnapshot
@@ -116,7 +125,5 @@
     UIGraphicsEndImageContext();
     return image;
 }
-
-
 
 @end

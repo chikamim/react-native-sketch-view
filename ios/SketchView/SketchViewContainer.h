@@ -10,9 +10,10 @@
 #import "SketchView.h"
 #import "SketchFile.h"
 
-@interface SketchViewContainer : UIView
+@interface SketchViewContainer : UIView <SketchViewOnDrawDelegate>
 
 @property (unsafe_unretained, nonatomic) IBOutlet SketchView *sketchView;
+@property (nonatomic, copy) RCTBubblingEventBlock onDraw;
 
 -(SketchFile *)saveToLocalCache;
 -(BOOL)openSketchFile:(NSString *)localFilePath;
